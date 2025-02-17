@@ -22,7 +22,7 @@ func main() {
 
 	data := sorting.StringSlice(strings.Split(strings.TrimSpace(str), ""))
 
-	sorting.MergeSort(data)
+	sorting.MergeSortBU(data)
 
 	fmt.Println("Sorted string:", strings.Join(data, ""))
 }

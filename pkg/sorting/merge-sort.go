@@ -36,6 +36,10 @@ func merge(items StringSlice, lo, mid, hi int) {
 	}
 }
 
+// we can make this faster in 3 ways
+// using insertion sort for small arrays (because resursion meads we'll get to this case)
+// testing if the array is in order already
+// use resursive trickery to eliminate the time take to copy the aux array
 func mergeSort(items StringSlice, lo, hi int) {
 	if hi <= lo {
 		return
@@ -49,9 +53,25 @@ func mergeSort(items StringSlice, lo, hi int) {
 	merge(items, lo, mid, hi) // merge results
 }
 
+// great example of devide and conquer strategy
+// break a big problem into smaller ones and merge results
 func MergeSort(items StringSlice) {
 	lo := 0
 	hi := len(items) - 1
 
 	mergeSort(items, lo, hi)
+}
+
+// build small solutions into larger ones
+func MergeSortBU(items StringSlice) {
+	n := len(items)
+
+	for sz := 1; sz < n; sz += sz {
+		for lo := 0; lo < n-sz; lo += sz + sz {
+			mid := lo + sz - 1
+			hi := min(lo+sz+sz-1, n-1)
+
+			merge(items, lo, mid, hi)
+		}
+	}
 }
